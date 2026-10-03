@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#090a10">
+  <title>Faië 魔法</title>
+  <meta name="description" content="Faië 魔法 — art, lore, and assorted experiments.">
+  <style>
+    :root {
+      --bg: #090a10;
+      --panel: rgba(255,255,255,.055);
+      --panel-hover: rgba(255,255,255,.09);
+      --text: #f5f3f8;
+      --muted: #aaa5b4;
+      --line: rgba(255,255,255,.10);
+      --glow-a: rgba(117, 223, 255, .18);
+      --glow-b: rgba(214, 120, 255, .16);
+      --glow-c: rgba(255, 116, 183, .10);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { min-height: 100%; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 20% 15%, var(--glow-a), transparent 33rem),
+        radial-gradient(circle at 82% 28%, var(--glow-b), transparent 30rem),
+        radial-gradient(circle at 55% 90%, var(--glow-c), transparent 27rem),
+        var(--bg);
+      color: var(--text);
+      font-family:
+        Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+    }
+
+    main {
+      width: min(92vw, 720px);
+      padding: 5rem 0 4rem;
+    }
+
+    .mark {
+      width: 3.2rem;
+      height: .18rem;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(90deg, #8eeaff, #cda1ff, #ff9bc9);
+      box-shadow: 0 0 24px rgba(181, 190, 255, .35);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 400;
+      font-size: clamp(3.3rem, 10vw, 6.2rem);
+      line-height: .92;
+      letter-spacing: -.055em;
+    }
+
+    h1 span {
+      display: block;
+      margin-top: .45rem;
+      font-family:
+        Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      font-size: .22em;
+      font-weight: 500;
+      letter-spacing: .24em;
+      color: var(--muted);
+    }
+
+    .intro {
+      max-width: 38rem;
+      margin: 1.6rem 0 2.6rem;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    nav {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: .75rem;
+    }
+
+    a.social {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      min-height: 4.4rem;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      background: var(--panel);
+      color: var(--text);
+      text-decoration: none;
+      backdrop-filter: blur(12px);
+      transition:
+        transform 150ms ease,
+        background 150ms ease,
+        border-color 150ms ease;
+    }
+
+    a.social:hover,
+    a.social:focus-visible {
+      transform: translateY(-2px);
+      background: var(--panel-hover);
+      border-color: rgba(255,255,255,.2);
+      outline: none;
+    }
+
+    .social-name {
+      font-weight: 650;
+      letter-spacing: .01em;
+    }
+
+    .social-handle {
+      display: block;
+      margin-top: .2rem;
+      color: var(--muted);
+      font-size: .78rem;
+      font-weight: 450;
+    }
+
+    .arrow {
+      color: #d8d3df;
+      font-size: 1.1rem;
+    }
+
+    footer {
+      margin-top: 2.8rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--line);
+      color: #77727f;
+      font-size: .78rem;
+      line-height: 1.6;
+    }
+
+    footer a {
+      color: #a9a4b2;
+      text-decoration-color: rgba(255,255,255,.22);
+      text-underline-offset: .18em;
+    }
+
+    @media (max-width: 560px) {
+      main { padding-top: 3.6rem; }
+      nav { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="mark" aria-hidden="true"></div>
+    <h1>Faië <span>魔法</span></h1>
+    <p class="intro">
+      Art, lore, and assorted experiments. The fuller site is still taking shape;
+      for now, these are the useful doors.
+    </p>
+
+    <nav aria-label="Elsewhere">
+      <a class="social" href="https://x.com/FaieMahou" rel="me">
+        <span>
+          <span class="social-name">X</span>
+          <span class="social-handle">@FaieMahou</span>
+        </span>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+
+      <a class="social" href="https://pixai.art/en/@faie" rel="me">
+        <span>
+          <span class="social-name">PixAI</span>
+          <span class="social-handle">@faie</span>
+        </span>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+
+      <a class="social" href="https://github.com/faiema" rel="me">
+        <span>
+          <span class="social-name">GitHub</span>
+          <span class="social-handle">@faiema</span>
+        </span>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+
+      <a class="social" href="https://www.mixcloud.com/faiemahou/" rel="me">
+        <span>
+          <span class="social-name">MixCloud</span>
+          <span class="social-handle">faiemahou</span>
+        </span>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+
+      <a class="social" href="https://www.youtube.com/@Fai%C3%AB-Ma" rel="me">
+        <span>
+          <span class="social-name">YouTube</span>
+          <span class="social-handle">@Faië-Ma</span>
+        </span>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+    </nav>
+
+    <footer>
+      Original material published here is released under
+      <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a>.
+    </footer>
+  </main>
+</body>
+</html>
