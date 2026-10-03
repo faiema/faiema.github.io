@@ -57,23 +57,27 @@
 
     h1 {
       margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: .12em .32em;
       font-weight: 400;
       font-size: clamp(3.3rem, 10vw, 6.2rem);
-      line-height: .92;
+      line-height: .95;
       letter-spacing: -.055em;
     }
 
-    h1 span {
-      display: block;
-      margin-top: .45rem;
+    .name {
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .han {
       font-family:
-        Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
-      font-size: .22em;
+        "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif CJK JP",
+        "Noto Serif JP", serif;
+      font-size: .96em;
+      letter-spacing: .02em;
       font-weight: 500;
-      letter-spacing: .24em;
-      color: var(--muted);
     }
 
     .intro {
@@ -164,7 +168,7 @@
 <body>
   <main>
     <div class="mark" aria-hidden="true"></div>
-    <h1>Faië <span>魔法</span></h1>
+    <h1><span class="name">Faië</span><span class="han">魔法</span></h1>
     <p class="intro">
       Art, lore, and assorted experiments. The fuller site is still taking shape;
       for now, these are the useful doors.
