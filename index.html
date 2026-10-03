@@ -155,6 +155,26 @@
       text-underline-offset: .18em;
     }
 
+    .counter {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: .65rem;
+      margin-top: 1rem;
+      font-family: "Courier New", ui-monospace, monospace;
+      font-size: .68rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #8e8996;
+    }
+
+    .counter img {
+      display: block;
+      height: 20px;
+      width: auto;
+      image-rendering: auto;
+    }
+
     @media (max-width: 560px) {
       main { padding-top: 3.6rem; }
       nav { grid-template-columns: 1fr; }
@@ -219,6 +239,13 @@
     <footer>
       Original material published here is released under
       <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a>.
+
+      <div class="counter">
+        <span>Visitor counter</span>
+        <img
+          src="https://hitscounter.dev/api/hit?url=https%3A%2F%2Ffaiema.github.io%2F&label=VISITOR&icon=123&color=%23a370f7&message=&style=flat-square&tz=America%2FVancouver"
+          alt="Visitor counter for faiema.github.io">
+      </div>
     </footer>
   </main>
 </body>
