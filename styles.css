@@ -204,8 +204,8 @@ a.social:focus-visible {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  opacity: .62;
-  filter: saturate(.82) contrast(1.06);
+  opacity: 1;
+  filter: saturate(1.08) contrast(1.03);
   transition: opacity 150ms ease, transform 220ms ease;
 }
 
@@ -215,14 +215,13 @@ a.social::after {
   z-index: -1;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(9,10,16,.92) 0%, rgba(9,10,16,.72) 42%, rgba(9,10,16,.28) 100%),
-    linear-gradient(0deg, rgba(9,10,16,.20), rgba(9,10,16,.08));
+    linear-gradient(90deg, rgba(9,10,16,.72) 0%, rgba(9,10,16,.38) 42%, rgba(9,10,16,.06) 100%);
   pointer-events: none;
 }
 
 a.social:hover .social-art,
 a.social:focus-visible .social-art {
-  opacity: .78;
+  opacity: 1;
   transform: scale(1.025);
 }
 
@@ -311,7 +310,7 @@ footer a {
   nav { grid-template-columns: 1fr; }
 
   .social-art {
-    opacity: .56;
+    opacity: 1;
   }
 }
 
