@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#090a10">
+  <title>Canon workflows · Faië 魔法</title>
+  <meta name="description" content="The Faië canon workflow: text editing, image staging, verified batch import, and private reference-image viewing.">
+  <style>
+    :root {
+      --bg: #090a10;
+      --panel: rgba(255,255,255,.055);
+      --panel-strong: rgba(255,255,255,.075);
+      --text: #f5f3f8;
+      --muted: #aaa5b4;
+      --dim: #7e7987;
+      --line: rgba(255,255,255,.10);
+      --cyan: #8eeaff;
+      --violet: #cda1ff;
+      --pink: #ff9bc9;
+      --ok: #b8f7cf;
+      --warn: #ffd6a3;
+      --glow-a: rgba(117, 223, 255, .16);
+      --glow-b: rgba(214, 120, 255, .14);
+      --glow-c: rgba(255, 116, 183, .09);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 18% 8%, var(--glow-a), transparent 34rem),
+        radial-gradient(circle at 85% 22%, var(--glow-b), transparent 30rem),
+        radial-gradient(circle at 50% 90%, var(--glow-c), transparent 30rem),
+        var(--bg);
+      color: var(--text);
+      font-family:
+        Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+    }
+
+    a {
+      color: #d9d1ff;
+      text-underline-offset: .18em;
+      text-decoration-color: rgba(217,209,255,.38);
+    }
+
+    a:hover { color: white; }
+
+    .shell {
+      width: min(92vw, 940px);
+      margin: 0 auto;
+      padding: 3.2rem 0 5rem;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 3.8rem;
+    }
+
+    .brand {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.1rem;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .brand .han {
+      font-family:
+        "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif CJK JP",
+        "Noto Serif JP", serif;
+      margin-left: .35rem;
+    }
+
+    .back {
+      color: var(--muted);
+      font-size: .88rem;
+      text-decoration: none;
+    }
+
+    .mark {
+      width: 3.2rem;
+      height: .18rem;
+      border-radius: 999px;
+      margin-bottom: 1.35rem;
+      background: linear-gradient(90deg, var(--cyan), var(--violet), var(--pink));
+      box-shadow: 0 0 24px rgba(181, 190, 255, .35);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.8rem, 8vw, 5rem);
+      font-weight: 400;
+      letter-spacing: -.045em;
+      line-height: .98;
+    }
+
+    .lede {
+      max-width: 48rem;
+      margin: 1.35rem 0 0;
+      color: var(--muted);
+      font-size: 1.06rem;
+      line-height: 1.75;
+    }
+
+    .toc {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .55rem;
+      margin: 2.2rem 0 3.6rem;
+    }
+
+    .toc a {
+      display: inline-block;
+      padding: .52rem .72rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--panel);
+      color: #d8d3df;
+      text-decoration: none;
+      font-size: .78rem;
+    }
+
+    section {
+      margin-top: 4.2rem;
+      scroll-margin-top: 2rem;
+    }
+
+    h2 {
+      margin: 0 0 .9rem;
+      font-size: 1.55rem;
+      font-weight: 650;
+      letter-spacing: -.02em;
+    }
+
+    h3 {
+      margin: 1.7rem 0 .55rem;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    p, li {
+      color: #c6c1cd;
+      line-height: 1.7;
+    }
+
+    p { margin: .7rem 0; }
+
+    ul, ol {
+      padding-left: 1.3rem;
+      margin: .7rem 0;
+    }
+
+    li + li { margin-top: .42rem; }
+
+    .flow {
+      margin: 1.3rem 0 1.5rem;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      background: linear-gradient(135deg, rgba(142,234,255,.06), rgba(205,161,255,.06));
+      font-family: "Courier New", ui-monospace, monospace;
+      color: #ece8f1;
+      line-height: 1.8;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: .8rem;
+      margin-top: 1.2rem;
+    }
+
+    .card {
+      padding: 1.05rem 1.1rem;
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      background: var(--panel);
+    }
+
+    .card strong {
+      display: block;
+      margin-bottom: .35rem;
+      font-size: .88rem;
+      color: #f2eef6;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    pre {
+      margin: 1rem 0;
+      padding: 1rem 1.05rem;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: .9rem;
+      background: rgba(0,0,0,.30);
+      color: #e9e4ef;
+      line-height: 1.55;
+      font-size: .82rem;
+    }
+
+    code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", "Courier New", monospace;
+      color: #ece7f2;
+    }
+
+    :not(pre) > code {
+      padding: .08rem .28rem;
+      border-radius: .3rem;
+      background: rgba(255,255,255,.06);
+      font-size: .91em;
+    }
+
+    .note, .warning {
+      margin: 1.2rem 0;
+      padding: .95rem 1rem;
+      border-left: 3px solid var(--violet);
+      background: rgba(205,161,255,.06);
+      border-radius: 0 .65rem .65rem 0;
+      color: #d5cfdd;
+      line-height: 1.65;
+    }
+
+    .warning {
+      border-left-color: #eebf82;
+      background: rgba(238,191,130,.055);
+    }
+
+    .label {
+      font-size: .68rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    .status-ok { color: var(--ok); }
+    .status-warn { color: var(--warn); }
+
+    .rule {
+      height: 1px;
+      margin: 4rem 0 0;
+      background: var(--line);
+    }
+
+    footer {
+      padding-top: 1.25rem;
+      color: #77727f;
+      font-size: .78rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 650px) {
+      .shell { padding-top: 2rem; }
+      .topbar { margin-bottom: 2.8rem; }
+      .cards { grid-template-columns: 1fr; }
+      .flow { white-space: normal; overflow-wrap: anywhere; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="topbar">
+      <a class="brand" href="/"><span>Faië</span><span class="han">魔法</span></a>
+      <a class="back" href="/">← home</a>
+    </div>
+
+    <div class="mark" aria-hidden="true"></div>
+    <div class="label">Process notes</div>
+    <h1>Canon workflows</h1>
+    <p class="lede">
+      The practical machinery behind the Faië canon repository: text work stays in ChatGPT,
+      binary reference images move through a verified batch bridge, and private GitHub images
+      can be brought back into ChatGPT for visual inspection without making the canon repository public.
+    </p>
+
+    <nav class="toc" aria-label="On this page">
+      <a href="#principle">division of labour</a>
+      <a href="#text">text canon</a>
+      <a href="#images-out">images → GitHub</a>
+      <a href="#images-in">GitHub → ChatGPT</a>
+      <a href="#integrity">integrity</a>
+      <a href="#security">security</a>
+    </nav>
+
+    <section id="principle">
+      <h2>1. Division of labour</h2>
+      <p>
+        The system deliberately keeps interpretation and transport separate. ChatGPT is the place where
+        canon is discussed, reconciled, written, and given authority. Codex is not asked to decide canon.
+        Its binary role is intentionally boring: run the importer that the repository already defines.
+      </p>
+
+      <div class="cards">
+        <div class="card">
+          <strong>ChatGPT Project</strong>
+          <p>Canon decisions, prose, repository structure, image approval, Drive staging, hashes, manifests, and GitHub text edits.</p>
+        </div>
+        <div class="card">
+          <strong>Codex + local checkout</strong>
+          <p>One deterministic binary-import command. No image interpretation, resizing, conversion, or one-at-a-time attachment work.</p>
+        </div>
+        <div class="card">
+          <strong>Google Drive</strong>
+          <p>Temporary staging for approved original image bytes. The staging folder is link-readable so the importer needs no Google credentials.</p>
+        </div>
+        <div class="card">
+          <strong>GitHub</strong>
+          <p>The authoritative canon repository, including text owners, reference images, manifests, scripts, and the private-image export workflow.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="text">
+      <h2>2. Text canon stays in ChatGPT</h2>
+      <p>
+        Normal canon work does not go through Codex. ChatGPT reads the owning files, edits the appropriate
+        canon/development/rendering documents through the GitHub connection, and commits those changes directly.
+        The repository's <code>AGENTS.md</code> and ownership map define which files own which facts.
+      </p>
+
+      <div class="flow">discussion → owning canon file → GitHub commit</div>
+
+      <p>
+        This keeps the local agent out of narrative decisions. The local checkout only becomes relevant when a
+        binary asset must cross the gap between ChatGPT's file environment and Git.
+      </p>
+    </section>
+
+    <section id="images-out">
+      <h2>3. Approved reference images → GitHub</h2>
+
+      <div class="flow">ChatGPT → Google Drive → pending.json → curl → SHA-256 verify → Git → GitHub</div>
+
+      <h3>Chat side</h3>
+      <ol>
+        <li>An image is explicitly approved as a canon or provisional reference.</li>
+        <li>ChatGPT preserves the original full-resolution file. It is not resized, recompressed, cropped, or converted.</li>
+        <li>The file is uploaded to <code>Faie Canon Bridge/pending/</code> in Google Drive.</li>
+        <li>ChatGPT records the Drive file ID, direct-download URL, repository destination, byte size, SHA-256, and useful image diagnostics in <code>.github/asset-import/pending.json</code>.</li>
+        <li>Any accompanying canon/reference prose is updated separately through the normal GitHub text workflow.</li>
+      </ol>
+
+      <h3>Local side</h3>
+      <p>
+        The repository contains <code>scripts/import-pending-assets</code>. Codex only needs the instruction:
+      </p>
+
+      <pre><code>Import pending canon assets.</code></pre>
+
+      <p>
+        Repository instructions tell Codex to run:
+      </p>
+
+      <pre><code>bash scripts/import-pending-assets</code></pre>
+
+      <p>The importer then:</p>
+      <ol>
+        <li>refuses to run if the working tree is dirty;</li>
+        <li>runs <code>git pull --ff-only</code>;</li>
+        <li>downloads every pending asset with <code>curl</code>;</li>
+        <li>verifies both expected byte size and SHA-256;</li>
+        <li>copies the verified bytes to the declared canonical destinations;</li>
+        <li>clears the pending manifest only after the entire batch succeeds;</li>
+        <li>commits the assets and manifest update;</li>
+        <li>pushes the commit.</li>
+      </ol>
+
+      <div class="note">
+        <strong>Batching is the point.</strong> One Codex instruction can import one image or twenty.
+        Human effort does not scale with the number of approved assets.
+      </div>
+    </section>
+
+    <section id="images-in">
+      <h2>4. Private GitHub references → ChatGPT vision</h2>
+      <p>
+        The GitHub connector can authenticate to the private canon repository, but its ordinary file-fetch
+        operations are text-oriented and do not return repository PNGs as viewable image payloads. A small
+        GitHub Actions bridge solves the reverse direction.
+      </p>
+
+      <div class="flow">private GitHub refs → temporary asset-view/* PR → Actions artifact → authenticated download → ChatGPT vision</div>
+
+      <p>
+        The repository contains <code>.github/workflows/export-canon-reference-images.yml</code>.
+        It runs only for pull requests whose head branch starts with <code>asset-view/</code>.
+      </p>
+
+      <ol>
+        <li>ChatGPT creates a temporary <code>asset-view/*</code> branch and opens a temporary PR.</li>
+        <li>The workflow checks out the private repository.</li>
+        <li>It collects image files under <code>canon/**/references/</code>.</li>
+        <li>GitHub packages them as the <code>canon-reference-images</code> Actions artifact.</li>
+        <li>The artifact is retained for one day.</li>
+        <li>ChatGPT downloads the artifact through the authenticated GitHub connection and can inspect the actual pixels.</li>
+        <li>The temporary PR is closed and the test branch is cleaned/reset.</li>
+      </ol>
+
+      <div class="note">
+        This makes the reference loop genuinely bidirectional: approved images can enter the private repository,
+        and later sessions can recover those private binaries for visual analysis without depending on old chat attachments.
+      </div>
+    </section>
+
+    <section id="integrity">
+      <h2>5. Byte integrity</h2>
+      <p>
+        The image bridge treats SHA-256 as the authority for byte-for-byte preservation.
+        Dimensions and file format are useful diagnostics, but they are not substitutes for the hash.
+      </p>
+
+      <div class="cards">
+        <div class="card">
+          <strong class="status-ok">Before import</strong>
+          <p>ChatGPT computes and records the original file size and SHA-256 in the pending manifest.</p>
+        </div>
+        <div class="card">
+          <strong class="status-ok">During import</strong>
+          <p>The local script refuses to install an asset if either its byte size or SHA-256 differs.</p>
+        </div>
+        <div class="card">
+          <strong class="status-ok">No transformation</strong>
+          <p>The courier does not regenerate, crop, resize, convert, or recompress reference images.</p>
+        </div>
+        <div class="card">
+          <strong class="status-warn">Failure is loud</strong>
+          <p>A missing file, dirty tree, failed download, size mismatch, or hash mismatch stops the batch before commit.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="security">
+      <h2>6. Security trade-offs</h2>
+      <p>
+        The Drive staging folder is intentionally configured as <strong>Anyone with the link → Viewer</strong>.
+        This removes the need for Google credentials, OAuth, Drive software, or <code>rclone</code> on the local machine.
+        The cost is that the staging URLs behave like bearer links: anyone who obtains one can read that staged asset
+        while link sharing remains enabled.
+      </p>
+
+      <div class="warning">
+        The bridge is therefore for material that is destined for the canon repository anyway. It is not suitable
+        for secrets, private correspondence, credentials, or other material that must remain access-controlled.
+      </div>
+
+      <p>
+        The ChatGPT-side Google Drive connection may request broader Google-account authorization than this narrow
+        workflow logically requires. The pipeline itself uses Drive staging only; Gmail, Calendar, Contacts, and
+        other Google data are not part of the canon asset process.
+      </p>
+
+      <p>
+        The GitHub repository can remain private. The reverse-viewing workflow uses an authenticated Actions artifact
+        with a one-day retention period rather than making repository images public.
+      </p>
+    </section>
+
+    <section>
+      <h2>7. The useful shorthand</h2>
+      <p>Once the plumbing exists, the recurring human-facing operation is intentionally tiny:</p>
+
+      <pre><code>Import pending canon assets.</code></pre>
+
+      <p>
+        Everything else is repository policy and deterministic machinery. That is the design goal:
+        let humans and language models argue about canon, and let scripts move bytes.
+      </p>
+    </section>
+
+    <div class="rule"></div>
+    <footer>
+      Technical notes for the Faië canon project. Original material published here is released under
+      <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a>.
+    </footer>
+  </main>
+</body>
+</html>
