@@ -44,6 +44,10 @@ main {
   width: min(100%, 720px);
 }
 
+.faie-mobile-wrap {
+  display: none;
+}
+
 .faie-figure {
   position: fixed;
   z-index: 0;
@@ -308,6 +312,25 @@ footer a {
 @media (max-width: 760px) {
   .faie-figure { display: none; }
   main { width: min(92vw, 720px); }
+
+  .faie-mobile-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 1.5rem -4vw 0;
+    overflow: hidden;
+  }
+
+  .faie-mobile {
+    display: block;
+    width: min(100%, 34rem);
+    height: auto;
+    max-height: 72vh;
+    object-fit: contain;
+    object-position: center bottom;
+    filter:
+      drop-shadow(0 1rem 1.8rem rgba(0,0,0,.28))
+      drop-shadow(0 0 2rem rgba(181,190,255,.07));
+  }
 }
 
 @media (max-width: 560px) {
