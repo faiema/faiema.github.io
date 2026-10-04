@@ -172,7 +172,7 @@ Each object in `pending[]` must use the exact schema consumed by `scripts/import
 - `sha256` — expected SHA-256 of the exact original bytes;
 - `size_bytes` — expected byte size.
 
-Do not substitute near-synonyms such as `drive_file_id` for `id` or `bytes` for `size_bytes`. The importer indexes these keys directly; a wrong key causes a Python `KeyError`. Because the manifest rows are produced through process substitution, that Python failure can be followed by the misleading shell message `No pending site assets.` Treat any preceding traceback as the real failure and do not interpret that later message as an empty manifest.
+Do not substitute near-synonyms such as `drive_file_id` for `id` or `bytes` for `size_bytes`. The importer indexes these keys directly; a wrong key causes a Python `KeyError` and stops the import. Manifest parsing must succeed before the importer can report `No pending site assets.`
 
 Before writing or repairing `pending.json`, inspect `scripts/import-pending-assets` and match its current schema exactly rather than relying on remembered field names.
 

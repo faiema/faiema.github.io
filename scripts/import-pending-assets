@@ -14,36 +14,42 @@ fi
 
 git pull --ff-only
 
-mapfile -t ROWS < <(python3 - "$MANIFEST" <<'PY'
+TMP="$(mktemp -d)"
+trap 'rm -rf "$TMP"' EXIT
+
+python3 - "$MANIFEST" > "$TMP/rows" <<'PY'
 import json, sys
 with open(sys.argv[1], encoding="utf-8") as f:
     data=json.load(f)
 for x in data.get("pending", []):
     print("\t".join([x["id"],x["download_url"],x["destination"],x["sha256"],str(x["size_bytes"])]))
 PY
-)
+mapfile -t ROWS < "$TMP/rows"
 
 if (( ${#ROWS[@]} == 0 )); then
   echo "No pending site assets."
   exit 0
 fi
 
-TMP="$(mktemp -d)"
-trap 'rm -rf "$TMP"' EXIT
 DESTS=()
+FILES=()
 
 for row in "${ROWS[@]}"; do
   IFS=$'\t' read -r id url dest sha size <<<"$row"
-  file="$TMP/$id"
+  file="$TMP/asset-${#FILES[@]}"
   echo "Fetching $id"
   curl --fail --location --retry 3 --retry-all-errors --silent --show-error "$url" -o "$file"
   got_size="$(wc -c < "$file" | tr -d '[:space:]')"
   [[ "$got_size" == "$size" ]] || { echo "size mismatch for $id" >&2; exit 1; }
   got_sha="$(sha256sum "$file" | awk '{print $1}')"
   [[ "$got_sha" == "$sha" ]] || { echo "SHA-256 mismatch for $id" >&2; exit 1; }
-  mkdir -p "$(dirname "$dest")"
-  cp -- "$file" "$dest"
+  FILES+=("$file")
   DESTS+=("$dest")
+done
+
+for i in "${!DESTS[@]}"; do
+  mkdir -p "$(dirname "${DESTS[$i]}")"
+  cp -- "${FILES[$i]}" "${DESTS[$i]}"
 done
 
 python3 - "$MANIFEST" <<'PY'

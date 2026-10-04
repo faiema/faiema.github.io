@@ -11,7 +11,6 @@
     :root {
       --bg: #090a10;
       --panel: rgba(255,255,255,.055);
-      --panel-strong: rgba(255,255,255,.075);
       --text: #f5f3f8;
       --muted: #aaa5b4;
       --dim: #7e7987;
@@ -53,6 +52,8 @@
     a:hover { color: white; }
 
     .shell {
+      position: relative;
+      z-index: 1;
       width: min(92vw, 940px);
       margin: 0 auto;
       padding: 3.2rem 0 5rem;
@@ -248,8 +249,8 @@
       color: var(--dim);
     }
 
-    .status-ok { color: var(--ok); }
-    .status-warn { color: var(--warn); }
+    .card .status-ok { color: var(--ok); }
+    .card .status-warn { color: var(--warn); }
 
     .rule {
       height: 1px;
