@@ -140,3 +140,15 @@ Do not remove idiosyncratic site features merely because they are unconventional
 The practical rule is:
 
 **Make the site do what the user asked, with the least machinery necessary, while leaving it cleaner and no more fragile than you found it.**
+
+## Binary site asset courier
+
+When asked to **import pending site assets**, run:
+
+```bash
+bash scripts/import-pending-assets
+```
+
+The importer reads `.github/asset-import/pending.json`, downloads the exact staged originals, verifies byte size and SHA-256, writes the full pending batch to its declared site paths, clears the manifest, commits, and pushes.
+
+Do not reinterpret, resize, recompress, convert, regenerate, or manually substitute staged assets. If the importer fails, report the exact error and stop.
