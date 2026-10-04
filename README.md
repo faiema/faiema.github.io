@@ -2,7 +2,7 @@
 
 Source for [faiema.github.io](https://faiema.github.io/), Faië's public website: art, social links, and workflow documentation.
 
-The site is hand-authored HTML and CSS. There is no JavaScript application, package manager, framework, or build step.
+The site is authored and maintained by LLMs, with the user acting as project manager and directing its content, design, and publishing decisions. It uses plain HTML and CSS, with no JavaScript application, package manager, framework, or build step.
 
 ## Files
 

@@ -4,7 +4,7 @@
 
 This repository is the source for **faiema.github.io**.
 
-Treat it as a small, hand-authored static website. Its job is to present Faië's public web presence and documentation cleanly, not to become an application framework or a second canon repository.
+Treat it as a small, LLM-authored static website, with the user acting as project manager. Its job is to present Faië's public web presence and documentation cleanly, not to become an application framework or a second canon repository.
 
 ## Role
 
