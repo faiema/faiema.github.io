@@ -164,4 +164,16 @@ bash scripts/import-pending-assets
 
 The importer reads `.github/asset-import/pending.json`, downloads the exact staged originals, verifies byte size and SHA-256, writes the full pending batch to its declared site paths, clears the manifest, commits, and pushes.
 
+Each object in `pending[]` must use the exact schema consumed by `scripts/import-pending-assets`:
+
+- `id` — a safe temporary identifier / filename used by the importer;
+- `download_url` — the direct-download URL for the staged original;
+- `destination` — repository-relative destination path;
+- `sha256` — expected SHA-256 of the exact original bytes;
+- `size_bytes` — expected byte size.
+
+Do not substitute near-synonyms such as `drive_file_id` for `id` or `bytes` for `size_bytes`. The importer indexes these keys directly; a wrong key causes a Python `KeyError`. Because the manifest rows are produced through process substitution, that Python failure can be followed by the misleading shell message `No pending site assets.` Treat any preceding traceback as the real failure and do not interpret that later message as an empty manifest.
+
+Before writing or repairing `pending.json`, inspect `scripts/import-pending-assets` and match its current schema exactly rather than relying on remembered field names.
+
 Do not reinterpret, resize, recompress, convert, regenerate, or manually substitute staged assets. If the importer fails, report the exact error and stop.
