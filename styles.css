@@ -131,6 +131,8 @@ h1 {
 
 a.internal {
   position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -159,6 +161,42 @@ a.internal:focus-visible {
     var(--panel-hover);
   border-color: rgba(205,161,255,.38);
   outline: none;
+}
+
+.documentation-art {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: .78;
+  filter: saturate(.9) contrast(1.02);
+  transform: scale(1.025);
+  transition: transform 220ms ease, opacity 150ms ease;
+}
+
+a.internal::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(9,10,16,.82) 0%, rgba(9,10,16,.56) 48%, rgba(9,10,16,.20) 100%);
+  pointer-events: none;
+}
+
+a.internal:hover .documentation-art,
+a.internal:focus-visible .documentation-art {
+  opacity: .86;
+  transform: scale(1.045);
+}
+
+a.internal > span,
+a.internal > .arrow {
+  position: relative;
+  z-index: 2;
 }
 
 .internal-kicker {
