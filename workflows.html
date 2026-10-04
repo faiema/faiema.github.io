@@ -257,11 +257,62 @@
       background: var(--line);
     }
 
+    .faie-mobile-wrap { display: none; }
+
+    .faie-figure {
+      position: fixed;
+      z-index: 0;
+      right: clamp(-8rem, -4vw, -2.5rem);
+      bottom: 0;
+      height: min(94vh, 1040px);
+      width: auto;
+      max-width: 48vw;
+      object-fit: contain;
+      object-position: bottom right;
+      pointer-events: none;
+      user-select: none;
+      opacity: .34;
+      filter:
+        drop-shadow(0 1.2rem 2rem rgba(0,0,0,.30))
+        drop-shadow(0 0 2.5rem rgba(181,190,255,.08));
+    }
+
     footer {
       padding-top: 1.25rem;
       color: #77727f;
       font-size: .78rem;
       line-height: 1.6;
+    }
+
+    @media (max-width: 1099px) {
+      .faie-figure {
+        right: -14rem;
+        max-width: 62vw;
+        opacity: .24;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .faie-figure { display: none; }
+
+      .faie-mobile-wrap {
+        display: flex;
+        justify-content: center;
+        margin: 2.5rem -4vw 0;
+        overflow: hidden;
+      }
+
+      .faie-mobile {
+        display: block;
+        width: 100%;
+        max-width: 100vw;
+        height: auto;
+        object-fit: contain;
+        object-position: center bottom;
+        filter:
+          drop-shadow(0 1rem 1.8rem rgba(0,0,0,.28))
+          drop-shadow(0 0 2rem rgba(181,190,255,.07));
+      }
     }
 
     @media (max-width: 650px) {
@@ -277,6 +328,7 @@
   </style>
 </head>
 <body>
+  <img class="faie-figure" src="/assets/faie-homepage.png" alt="" aria-hidden="true">
   <main class="shell">
     <div class="topbar">
       <a class="brand" href="/"><span>Faië</span><span class="han">魔法</span></a>
@@ -532,6 +584,10 @@
         Do not place ordinary navigation, documentation cards, or other page content between the Faië figure and the footer.
       </p>
     </section>
+
+    <div class="faie-mobile-wrap" aria-hidden="true">
+      <img class="faie-mobile" src="/assets/faie-homepage.png" alt="">
+    </div>
 
     <div class="rule"></div>
     <footer>
