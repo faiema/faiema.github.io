@@ -296,6 +296,7 @@
       <a href="#principle">division of labour</a>
       <a href="#text">text canon</a>
       <a href="#images-out">images → GitHub</a>
+      <a href="#work">Work alternative</a>
       <a href="#images-in">GitHub → ChatGPT</a>
       <a href="#integrity">integrity</a>
       <a href="#security">security</a>
@@ -305,8 +306,9 @@
       <h2>1. Division of labour</h2>
       <p>
         The system deliberately keeps interpretation and transport separate. ChatGPT is the place where
-        canon is discussed, reconciled, written, and given authority. Codex is not asked to decide canon.
-        Its binary role is intentionally boring: run the importer that the repository already defines.
+        canon is discussed, reconciled, written, and given authority. The binary courier can be a local
+        Codex checkout, as used here, or potentially ChatGPT Work for people who do not use Codex. Neither
+        courier should be asked to decide canon.
       </p>
 
       <div class="cards">
@@ -316,7 +318,11 @@
         </div>
         <div class="card">
           <strong>Codex + local checkout</strong>
-          <p>One deterministic binary-import command. No image interpretation, resizing, conversion, or one-at-a-time attachment work.</p>
+          <p>The tested path here: one deterministic binary-import command. No image interpretation, resizing, conversion, or one-at-a-time attachment work.</p>
+        </div>
+        <div class="card">
+          <strong>ChatGPT Work</strong>
+          <p>An alternative courier for eligible accounts: Work can use Project context, connected apps and files, and carry out longer multi-step tasks. This route is availability- and permission-dependent and is not the path tested here.</p>
         </div>
         <div class="card">
           <strong>Google Drive</strong>
@@ -390,8 +396,38 @@
       </div>
     </section>
 
+    <section id="work">
+      <h2>4. Alternative courier: ChatGPT Work</h2>
+      <p>
+        Codex is not conceptually required. For accounts that have <strong>ChatGPT Work</strong>, a Work thread can
+        potentially replace the local Codex courier. Work is designed for longer multi-step tasks and can use
+        Project context, connected apps, and files. On supported desktop configurations it can also work with
+        local files and desktop apps when permission is granted.
+      </p>
+
+      <div class="flow">ChatGPT Project / Drive staging → Work → GitHub upload → verification</div>
+
+      <p>
+        The intended Work variant is straightforward: give Work the same Project context, have it read the pending
+        manifest, retrieve the staged originals, upload the exact binaries to GitHub, verify them, and clear the
+        manifest. That keeps the whole handoff inside ChatGPT rather than requiring a local repository checkout.
+      </p>
+
+      <div class="warning">
+        <strong>Status:</strong> this is a plausible alternative, not the tested implementation documented above.
+        Work availability is still account- and workspace-dependent, and its exact local-file / browser capabilities
+        may differ by surface. Treat it as an alternate architecture to validate before relying on it for canonical assets.
+      </div>
+
+      <p>
+        In other words: <strong>Codex is the current proven courier, not a requirement of the design.</strong>
+        The actual contract is simply that some agent must move the exact staged bytes to GitHub without
+        transforming them and must verify the expected hash before declaring success.
+      </p>
+    </section>
+
     <section id="images-in">
-      <h2>4. Private GitHub references → ChatGPT vision</h2>
+      <h2>5. Private GitHub references → ChatGPT vision</h2>
       <p>
         The GitHub connector can authenticate to the private canon repository, but its ordinary file-fetch
         operations are text-oriented and do not return repository PNGs as viewable image payloads. A small
@@ -422,7 +458,7 @@
     </section>
 
     <section id="integrity">
-      <h2>5. Byte integrity</h2>
+      <h2>6. Byte integrity</h2>
       <p>
         The image bridge treats SHA-256 as the authority for byte-for-byte preservation.
         Dimensions and file format are useful diagnostics, but they are not substitutes for the hash.
@@ -449,7 +485,7 @@
     </section>
 
     <section id="security">
-      <h2>6. Security trade-offs</h2>
+      <h2>7. Security trade-offs</h2>
       <p>
         The Drive staging folder is intentionally configured as <strong>Anyone with the link → Viewer</strong>.
         This removes the need for Google credentials, OAuth, Drive software, or <code>rclone</code> on the local machine.
@@ -475,14 +511,15 @@
     </section>
 
     <section>
-      <h2>7. The useful shorthand</h2>
+      <h2>8. The useful shorthand</h2>
       <p>Once the plumbing exists, the recurring human-facing operation is intentionally tiny:</p>
 
       <pre><code>Import pending canon assets.</code></pre>
 
       <p>
-        Everything else is repository policy and deterministic machinery. That is the design goal:
-        let humans and language models argue about canon, and let scripts move bytes.
+        On the tested Codex path, everything else is repository policy and deterministic machinery.
+        A Work-based courier could use the same manifest and integrity rules without requiring a local Codex checkout.
+        That is the design goal: let humans and language models argue about canon, and let boring machinery move bytes.
       </p>
     </section>
 
