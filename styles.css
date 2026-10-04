@@ -174,8 +174,8 @@ a.social {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  min-height: 4.4rem;
-  padding: 1rem 1.1rem;
+  min-height: 8rem;
+  padding: 1.25rem 1.3rem;
   border: 1px solid var(--line);
   border-radius: 1rem;
   background: var(--panel);
@@ -206,6 +206,7 @@ a.social:focus-visible {
   object-position: center;
   opacity: 1;
   filter: saturate(1.08) contrast(1.03);
+  transform: scale(1.035);
   transition: opacity 150ms ease, transform 220ms ease;
 }
 
@@ -222,7 +223,7 @@ a.social::after {
 a.social:hover .social-art,
 a.social:focus-visible .social-art {
   opacity: 1;
-  transform: scale(1.025);
+  transform: scale(1.055);
 }
 
 .social-main {
