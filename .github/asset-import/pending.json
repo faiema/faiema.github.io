@@ -1,4 +1,49 @@
 {
   "version": 1,
-  "pending": []
+  "pending": [
+    {
+      "id": "social-x",
+      "drive_file_id": "1AQtAij-fP4xeUhNdgOiovBMWnLybKhCE",
+      "download_url": "https://drive.usercontent.google.com/download?id=1AQtAij-fP4xeUhNdgOiovBMWnLybKhCE&export=download&confirm=t",
+      "destination": "assets/social-x.jpg",
+      "sha256": "9db10e4c38cf38134e6593eb95655a9aa1f87a0c70829cf1e5a0678f0c04cb19",
+      "size_bytes": 93392,
+      "width": 512,
+      "height": 512,
+      "expected_format": "JPEG"
+    },
+    {
+      "id": "social-pixai",
+      "drive_file_id": "1ML2HksewZVFVJoAjqNh9FZFnBOpRIxoA",
+      "download_url": "https://drive.usercontent.google.com/download?id=1ML2HksewZVFVJoAjqNh9FZFnBOpRIxoA&export=download&confirm=t",
+      "destination": "assets/social-pixai.jpg",
+      "sha256": "494d98edbd3311734360c9e64fd86a38eb3060080ff17ce8b5ab86660b5182c0",
+      "size_bytes": 87724,
+      "width": 512,
+      "height": 512,
+      "expected_format": "JPEG"
+    },
+    {
+      "id": "social-github",
+      "drive_file_id": "1n9tPejertZ8wkKdMoIy3gNJWuLB9C5BK",
+      "download_url": "https://drive.usercontent.google.com/download?id=1n9tPejertZ8wkKdMoIy3gNJWuLB9C5BK&export=download&confirm=t",
+      "destination": "assets/social-github.jpg",
+      "sha256": "b4744f6f0ca7880fc93019e83d0cac35e35b84b2caa9dacf44e318f90aaaa3ed",
+      "size_bytes": 63027,
+      "width": 512,
+      "height": 512,
+      "expected_format": "JPEG"
+    },
+    {
+      "id": "social-mixcloud",
+      "drive_file_id": "1gGI9L9MHbOU3ndqBjDgaIw6YL9-3Wntr",
+      "download_url": "https://drive.usercontent.google.com/download?id=1gGI9L9MHbOU3ndqBjDgaIw6YL9-3Wntr&export=download&confirm=t",
+      "destination": "assets/social-mixcloud.jpg",
+      "sha256": "58558c301ef8c8d3271e65c744e2fb17edf386b92521972b5163baf685ab6f29",
+      "size_bytes": 85975,
+      "width": 512,
+      "height": 512,
+      "expected_format": "JPEG"
+    }
+  ]
 }
