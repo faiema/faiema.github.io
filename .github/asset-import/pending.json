@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "pending": [
+    {
+      "id": "faie-homepage",
+      "drive_file_id": "18ujFnb-t5tmhNwmPGxe_Rlwu_7TmQbp7",
+      "download_url": "https://drive.usercontent.google.com/download?id=18ujFnb-t5tmhNwmPGxe_Rlwu_7TmQbp7&export=download&confirm=t",
+      "destination": "assets/faie-homepage.png",
+      "sha256": "b48f9bff60b0bd55382a89ca8a7c06489275adbb68e9ee086933a35fa0e023ad",
+      "size_bytes": 2260962,
+      "width": 1024,
+      "height": 1536,
+      "expected_format": "PNG"
+    }
+  ]
+}
