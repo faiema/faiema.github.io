@@ -88,6 +88,54 @@
       line-height: 1.7;
     }
 
+    .site-links {
+      display: grid;
+      gap: .75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    a.internal {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      min-height: 4.8rem;
+      padding: 1rem 1.1rem;
+      border: 1px solid rgba(205,161,255,.22);
+      border-radius: 1rem;
+      background:
+        linear-gradient(135deg, rgba(142,234,255,.055), rgba(205,161,255,.075)),
+        var(--panel);
+      color: var(--text);
+      text-decoration: none;
+      backdrop-filter: blur(12px);
+      transition:
+        transform 150ms ease,
+        background 150ms ease,
+        border-color 150ms ease;
+    }
+
+    a.internal:hover,
+    a.internal:focus-visible {
+      transform: translateY(-2px);
+      background:
+        linear-gradient(135deg, rgba(142,234,255,.08), rgba(205,161,255,.11)),
+        var(--panel-hover);
+      border-color: rgba(205,161,255,.38);
+      outline: none;
+    }
+
+    .internal-kicker {
+      display: block;
+      margin-bottom: .18rem;
+      color: #bdb5c9;
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
     nav {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -194,15 +242,18 @@
       for now, these are the useful doors.
     </p>
 
-    <nav aria-label="Elsewhere">
-      <a class="social" href="/workflows.html">
+    <div class="site-links" aria-label="On this site">
+      <a class="internal" href="/workflows.html">
         <span>
+          <span class="internal-kicker">On this site</span>
           <span class="social-name">Canon workflows</span>
           <span class="social-handle">ChatGPT ↔ GitHub</span>
         </span>
         <span class="arrow" aria-hidden="true">→</span>
       </a>
+    </div>
 
+    <nav aria-label="Elsewhere">
       <a class="social" href="https://x.com/FaieMahou" rel="me">
         <span>
           <span class="social-name">X</span>
