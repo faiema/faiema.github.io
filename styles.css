@@ -32,8 +32,33 @@ body {
 }
 
 main {
-  width: min(92vw, 720px);
+  position: relative;
+  z-index: 1;
+  width: min(92vw, 1120px);
   padding: 5rem 0 4rem;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 720px);
+}
+
+.faie-figure {
+  position: fixed;
+  z-index: 0;
+  right: clamp(-8rem, -4vw, -2.5rem);
+  bottom: 0;
+  height: min(94vh, 1040px);
+  width: auto;
+  max-width: 48vw;
+  object-fit: contain;
+  object-position: bottom right;
+  pointer-events: none;
+  user-select: none;
+  filter:
+    drop-shadow(0 1.2rem 2rem rgba(0,0,0,.30))
+    drop-shadow(0 0 2.5rem rgba(181,190,255,.08));
 }
 
 .mark {
@@ -143,6 +168,8 @@ nav {
 
 a.social {
   position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -167,6 +194,28 @@ a.social:focus-visible {
   background: var(--panel-hover);
   border-color: rgba(255,255,255,.2);
   outline: none;
+}
+
+.social-art {
+  position: absolute;
+  z-index: -2;
+  inset: 0 0 0 auto;
+  width: 48%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: .26;
+  filter: saturate(.72) contrast(1.05);
+  mask-image: linear-gradient(to right, transparent, #000 48%);
+}
+
+a.social::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(9,10,16,.20) 42%, rgba(9,10,16,.48));
+  pointer-events: none;
 }
 
 .social-main {
@@ -236,9 +285,27 @@ footer a {
   image-rendering: auto;
 }
 
+@media (max-width: 1099px) {
+  .faie-figure {
+    right: -14rem;
+    max-width: 62vw;
+    opacity: .92;
+  }
+}
+
+@media (max-width: 760px) {
+  .faie-figure { display: none; }
+  main { width: min(92vw, 720px); }
+}
+
 @media (max-width: 560px) {
   main { padding-top: 3.6rem; }
   nav { grid-template-columns: 1fr; }
+
+  .social-art {
+    width: 56%;
+    opacity: .22;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
