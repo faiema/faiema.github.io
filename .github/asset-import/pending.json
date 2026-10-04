@@ -1,4 +1,16 @@
 {
   "version": 1,
-  "pending": []
+  "pending": [
+    {
+      "drive_file_id": "1f16mMSZHe27nDbeaj7Sj3b-6os6CTzqM",
+      "download_url": "https://drive.google.com/uc?export=download&id=1f16mMSZHe27nDbeaj7Sj3b-6os6CTzqM",
+      "destination": "assets/faie-documentation-links-bg.png",
+      "bytes": 2001447,
+      "sha256": "3215fb9fb5c02f62811863c467fb7d595db330aac7520dccb7b6be5b1998f07b",
+      "diagnostics": {
+        "format": "PNG",
+        "purpose": "Documentation link background"
+      }
+    }
+  ]
 }
