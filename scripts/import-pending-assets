@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="$(git rev-parse --show-toplevel)"
+cd "$ROOT"
+MANIFEST=".github/asset-import/pending.json"
+command -v curl >/dev/null
+command -v python3 >/dev/null
+command -v sha256sum >/dev/null
+
+if [[ -n "$(git status --porcelain)" ]]; then
+  echo "error: working tree is not clean" >&2
+  exit 2
+fi
+
+git pull --ff-only
+
+mapfile -t ROWS < <(python3 - "$MANIFEST" <<'PY'
+import json, sys
+with open(sys.argv[1], encoding="utf-8") as f:
+    data=json.load(f)
+for x in data.get("pending", []):
+    print("\t".join([x["id"],x["download_url"],x["destination"],x["sha256"],str(x["size_bytes"])]))
+PY
+)
+
+if (( ${#ROWS[@]} == 0 )); then
+  echo "No pending site assets."
+  exit 0
+fi
+
+TMP="$(mktemp -d)"
+trap 'rm -rf "$TMP"' EXIT
+DESTS=()
+
+for row in "${ROWS[@]}"; do
+  IFS=$'\t' read -r id url dest sha size <<<"$row"
+  file="$TMP/$id"
+  echo "Fetching $id"
+  curl --fail --location --retry 3 --retry-all-errors --silent --show-error "$url" -o "$file"
+  got_size="$(wc -c < "$file" | tr -d '[:space:]')"
+  [[ "$got_size" == "$size" ]] || { echo "size mismatch for $id" >&2; exit 1; }
+  got_sha="$(sha256sum "$file" | awk '{print $1}')"
+  [[ "$got_sha" == "$sha" ]] || { echo "SHA-256 mismatch for $id" >&2; exit 1; }
+  mkdir -p "$(dirname "$dest")"
+  cp -- "$file" "$dest"
+  DESTS+=("$dest")
+done
+
+python3 - "$MANIFEST" <<'PY'
+import json, sys
+p=sys.argv[1]
+with open(p, encoding="utf-8") as f: d=json.load(f)
+d["pending"]=[]
+with open(p,"w",encoding="utf-8") as f:
+    json.dump(d,f,indent=2); f.write("\n")
+PY
+
+git add -- "$MANIFEST" "${DESTS[@]}"
+git commit -m "Import pending site assets"
+git push
