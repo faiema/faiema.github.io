@@ -62,6 +62,19 @@ New UI should look native to the existing page rather than pasted in from a diff
 
 Avoid gratuitous ornament and avoid turning the site into generic fantasy styling.
 
+## Persistent Faië footer figure
+
+The full-body Faië artwork at `/assets/faie-homepage.png` is a persistent site feature, not a homepage-only decoration.
+
+Every ordinary public site page should include the Faië footer figure immediately before its footer/license area. Preserve the established responsive behavior:
+
+- on desktop, the figure may remain fixed alongside the main content;
+- on mobile, it moves into normal document flow at the end of the page content;
+- do not place ordinary navigation, cards, or article content between the figure and the footer;
+- reuse the established homepage asset rather than inventing a page-specific substitute unless the user explicitly asks for one.
+
+When adding a new public page, carrying this figure/footer treatment forward is part of the page implementation.
+
 ## Accessibility and responsive behavior
 
 Preserve or improve:
