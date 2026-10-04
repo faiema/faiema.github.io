@@ -199,14 +199,14 @@ a.social:focus-visible {
 .social-art {
   position: absolute;
   z-index: -2;
-  inset: 0 0 0 auto;
-  width: 48%;
+  inset: 0;
+  width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
-  opacity: .26;
-  filter: saturate(.72) contrast(1.05);
-  mask-image: linear-gradient(to right, transparent, #000 48%);
+  opacity: .62;
+  filter: saturate(.82) contrast(1.06);
+  transition: opacity 150ms ease, transform 220ms ease;
 }
 
 a.social::after {
@@ -214,8 +214,16 @@ a.social::after {
   position: absolute;
   z-index: -1;
   inset: 0;
-  background: linear-gradient(90deg, rgba(9,10,16,.20) 42%, rgba(9,10,16,.48));
+  background:
+    linear-gradient(90deg, rgba(9,10,16,.92) 0%, rgba(9,10,16,.72) 42%, rgba(9,10,16,.28) 100%),
+    linear-gradient(0deg, rgba(9,10,16,.20), rgba(9,10,16,.08));
   pointer-events: none;
+}
+
+a.social:hover .social-art,
+a.social:focus-visible .social-art {
+  opacity: .78;
+  transform: scale(1.025);
 }
 
 .social-main {
@@ -303,8 +311,7 @@ footer a {
   nav { grid-template-columns: 1fr; }
 
   .social-art {
-    width: 56%;
-    opacity: .22;
+    opacity: .56;
   }
 }
 
