@@ -136,7 +136,8 @@ a.social {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  min-height: 8rem;
+  aspect-ratio: 14 / 5;
+  min-height: 0;
   padding: 1.25rem 1.3rem;
   border: 1px solid var(--line);
   border-radius: 1rem;
@@ -357,6 +358,14 @@ footer a {
 @media (max-width: 560px) {
   main { padding-top: 3.6rem; }
   nav { grid-template-columns: 1fr; }
+
+  /* Link cards keep the same cinematic 14:5 frame on mobile. */
+  a.internal,
+  a.social {
+    aspect-ratio: 14 / 5;
+    min-height: 0;
+    padding: 1rem 1.05rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
