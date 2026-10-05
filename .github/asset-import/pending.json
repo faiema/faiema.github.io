@@ -1,12 +1,4 @@
 {
   "version": 1,
-  "pending": [
-    {
-      "id": "badspeak-article-card.png",
-      "download_url": "https://drive.google.com/uc?export=download&id=1Y--D4UfQryJYL0kvHhR6OdsE1909mfsX",
-      "destination": "assets/badspeak-article-card.png",
-      "sha256": "3fe09b1ec844958203b19b28feecd63e18344f855560753b44f2fefc4bb59645",
-      "size_bytes": 2341993
-    }
-  ]
+  "pending": []
 }
