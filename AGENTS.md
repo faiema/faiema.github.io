@@ -62,6 +62,20 @@ New UI should look native to the existing page rather than pasted in from a diff
 
 Avoid gratuitous ornament and avoid turning the site into generic fantasy styling.
 
+## Standard link-card artwork
+
+The site's standard image-backed link card uses a **14:5 aspect ratio** (approximately 2.8:1), with **1400×500 px** as the preferred authored artwork size.
+
+This applies consistently on both desktop and mobile. Responsive layouts may change the number of card columns, but must not change the card aspect ratio merely because the viewport is narrow.
+
+Use this standard for ordinary social links, documentation links, article links, and future image-backed navigation cards unless a specific component has a documented reason to differ.
+
+Card artwork should be authored or cropped for the wide frame. Preserve a higher-resolution/master illustration separately when useful; the navigation card may use a dedicated 14:5 crop.
+
+Use `object-fit: cover` for card artwork and choose `object-position` deliberately when the default centered crop would lose the subject.
+
+Do not stretch images to fit the frame.
+
 ## Persistent Faië footer figure
 
 The full-body Faië artwork at `/assets/faie-homepage.png` is a persistent site feature, not a homepage-only decoration.
